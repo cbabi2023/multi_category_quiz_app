@@ -5,9 +5,16 @@ import 'package:provider/provider.dart';
 import 'package:quiz_app/controller/quiz_page_controller/quiz_page_controller.dart';
 import 'package:quiz_app/utils/color_constants/color_constants.dart';
 import 'package:quiz_app/view/dashboard_screen/dashboard_screen.dart';
+import 'package:quiz_app/view/quiz_page/quiz_page.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  final String categoryName;
+  final List categoryBaseQuestionCount;
+  const ResultPage({
+    super.key,
+    required this.categoryName,
+    required this.categoryBaseQuestionCount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -106,62 +113,61 @@ class ResultPage extends StatelessWidget {
                 child: Container(
                   width: 150,
                   height: 50,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   decoration: BoxDecoration(
                     color: ColorConstants.textColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      IconButton(
-                          onPressed: () {
-                            quizControllerrResult.backtoNomalScore();
-                            log('question count${quizControllerrResult.questionCount}');
-                            log(' question index ${quizControllerrResult.questionIndex}');
+                      CircleAvatar(
+                        backgroundColor:
+                            ColorConstants.rankValueColor.withOpacity(0.3),
+                        child: IconButton(
+                            onPressed: () {
+                              quizControllerrResult.backtoNomalScore();
+                              log('question count${quizControllerrResult.questionCount}');
+                              log(' question index ${quizControllerrResult.questionIndex}');
 
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
-                                ));
-                          },
-                          icon: const Icon(Icons.home)),
-                      const Text('Home Screen'),
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const DashboardScreen(),
+                                  ));
+                            },
+                            icon: Icon(Icons.home)),
+                      ),
+
+                      // retry button
+                      CircleAvatar(
+                        backgroundColor:
+                            ColorConstants.rankValueColor.withOpacity(0.3),
+                        child: IconButton(
+                            onPressed: () {
+                              quizControllerrResult.backtoNomalScore();
+                              log('question count${quizControllerrResult.questionCount}');
+                              log(' question index ${quizControllerrResult.questionIndex}');
+
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QuizPage(
+                                      categoryBaseQuestionCount:
+                                          categoryBaseQuestionCount,
+                                      categoryName: categoryName,
+                                    ),
+                                  ));
+                            },
+                            icon: const Icon(Icons.rotate_right)),
+                      ),
                     ],
                   ),
                 ),
               ),
 
               // -------------- Retry Quiz Button -------------------------------------
-              Positioned(
-                bottom: screenHeight / 5,
-                left: screenWidth / 3.2,
-                child: Container(
-                  width: 150,
-                  height: 50,
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                    color: ColorConstants.textColor,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
-                                ));
-                          },
-                          icon: const Icon(Icons.arrow_back)),
-                      const Text('Retry Quiz'),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
         ),

@@ -274,7 +274,10 @@ class QuizPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ResultPage(),
+                        builder: (context) => ResultPage(
+                          categoryName: categoryName,
+                          categoryBaseQuestionCount: categoryBaseQuestionCount,
+                        ),
                       ),
                     );
                     quizController.resetQuiz();
@@ -365,13 +368,7 @@ class QuizHeaderSection extends StatelessWidget {
         ),
         Expanded(
           child: InkWell(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ResultPage(),
-                  ));
-            },
+            onTap: () {},
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               height: 34,
@@ -391,14 +388,7 @@ class QuizHeaderSection extends StatelessWidget {
                       // Use a Container for the progress bar
                       height: 20, // Match the height of the progress bar
                       child: RoundedProgressBar(
-                        style: RoundedProgressBarStyle(
-                          colorBorder: ColorConstants.backgroundColor,
-                          colorProgress: ColorConstants.backgroundColor,
-                          colorProgressDark: ColorConstants.backgroundColor,
-                          backgroundProgress: ColorConstants.backgroundColor,
-                          colorBackgroundIcon: ColorConstants.backgroundColor,
-                          
-                        ),
+                        style: RoundedProgressBarStyle(),
                         milliseconds: 100,
                         percent: progressBarPercentage,
                         height: 5, // Set the same height
